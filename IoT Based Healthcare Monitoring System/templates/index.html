@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Healthcare Monitoring</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            background-color: #1e1e1e;
+            padding: 20px;
+            margin: 20px auto;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+        }
+        .emoji {
+            font-size: 40px;
+        }
+        .data {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        async function fetchData() {
+            let response = await fetch('/get_data');
+            let data = await response.json();
+
+            document.getElementById("heartRate").innerText = data.heart_rate + " bpm";
+            document.getElementById("spo2").innerText = data.spo2 + " %";
+            document.getElementById("temperature").innerText = data.temperature + " °C";
+        }
+
+        setInterval(fetchData, 2000);
+    </script>
+</head>
+<body>
+    <h1>🩺 IoT Healthcare Monitoring System</h1>
+    
+    <div class="container">
+        <div class="card">
+            <div class="emoji">❤️</div>
+            <p>Heart Rate</p>
+            <p class="data" id="heartRate">-- bpm</p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">💧</div>
+            <p>SpO2 Level</p>
+            <p class="data" id="spo2">-- %</p>
+        </div>
+
+        <div class="card">
+            <div class="emoji">🌡️</div>
+            <p>Temperature</p>
+            <p class="data" id="temperature">-- °C</p>
+        </div>
+    </div>
+</body>
+</html>
